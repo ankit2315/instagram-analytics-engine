@@ -1,0 +1,19 @@
+seeds:
+  - name: Apr-04-2025_Feb-12-2026_1872339153476004
+    config:
+      column_types:
+        "Post ID": bigint
+        "Account ID": bigint
+        "Like Count": bigint
+        "Comment Count": bigint
+        "Share Count": bigint
+        "Save Count": bigint
+  - name: Oct-03-2024_Apr-03-2025_2473370336446386
+    config:
+      column_types:
+        "Post ID": bigint
+        "Account ID": bigint
+        "Like Count": bigint
+        "Comment Count": bigint
+        "Share Count": bigint
+        "Save Count": bigint

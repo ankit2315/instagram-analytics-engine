@@ -1,0 +1,8 @@
+venv/
+logs/
+*.duckdb
+*.duckdb.wal
+
+instagram_analytics_engine/target/
+instagram_analytics_engine/dbt_packages/
+instagram_analytics_engine/logs/
