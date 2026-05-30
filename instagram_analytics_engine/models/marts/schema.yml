@@ -1,0 +1,58 @@
+version: 2
+
+models:
+  - name: fct_instagram_post_performance
+    description: "Post-level Instagram performance fact table. One row per Instagram post."
+
+    columns:
+      - name: post_id
+        description: "Unique Instagram post identifier. This defines the grain of the fact table."
+        tests:
+          - not_null
+          - unique
+
+      - name: published_at
+        description: "Timestamp when the Instagram post was published."
+        tests:
+          - not_null
+
+      - name: views
+        description: "Total number of views received by the post."
+
+      - name: reach
+        description: "Number of unique accounts reached by the post. May be null when Instagram export data does not provide reach for a post."
+
+      - name: likes
+        description: "Number of likes received by the post."
+
+      - name: comments
+        description: "Number of comments received by the post."
+
+      - name: shares
+        description: "Number of shares received by the post."
+
+      - name: saves
+        description: "Number of saves received by the post."
+
+      - name: follows
+        description: "Number of follows attributed to the post."
+
+      - name: total_engagements
+        description: "Total engagement actions on the post: likes + comments + shares + saves."
+        tests:
+          - not_null
+
+      - name: like_rate
+        description: "Likes divided by reach, multiplied by 100."
+
+      - name: comment_rate
+        description: "Comments divided by reach, multiplied by 100."
+
+      - name: share_rate
+        description: "Shares divided by reach, multiplied by 100."
+
+      - name: save_rate
+        description: "Saves divided by reach, multiplied by 100. High save rate indicates content users want to revisit, making it a stronger signal of resonance than likes alone."
+
+      - name: engagement_rate
+        description: "Total engagements divided by reach, multiplied by 100. Denominator is reach rather than views because reach represents unique accounts, making posts fairly comparable."
