@@ -56,3 +56,34 @@ models:
 
       - name: engagement_rate
         description: "Total engagements divided by reach, multiplied by 100. Denominator is reach rather than views because reach represents unique accounts, making posts fairly comparable."
+
+  - name: dim_post_meta
+    description: "Post-level metadata dimension. One row per Instagram post with descriptive content attributes."
+
+    columns:
+      - name: post_id
+        description: "Unique Instagram post identifier. This defines the grain of the dimension."
+        tests:
+          - not_null
+          - unique
+
+      - name: post_type
+        description: "Instagram content format, such as reel or carousel."
+        tests:
+          - not_null
+
+      - name: caption
+        description: "Original Instagram caption text from the export."
+
+      - name: post_url
+        description: "Public Instagram URL for the post."
+
+      - name: duration_seconds
+        description: "Video duration in seconds when available."
+
+      - name: video_length_bucket
+        description: "Video duration category derived from duration_seconds: short under 15 seconds, medium from 15 to 30 seconds, long above 30 seconds, and unknown when duration is missing."
+        tests:
+          - not_null
+          - accepted_values:
+              values: ['short', 'medium', 'long', 'unknown']
