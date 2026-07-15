@@ -104,3 +104,18 @@ models:
         description: "Total number of posts in this video length bucket."
         tests:
           - not_null
+
+  - name: agg_instagram_weekly_performance
+    description: "Aggregate mart showing performance trends over time. One row per week."
+
+    columns:
+      - name: week_start_date
+        description: "The Monday of the week. This defines the grain of this aggregate mart."
+        tests:
+          - not_null
+          - unique
+      
+      - name: post_count
+        description: "Total number of posts published during this week."
+        tests:
+          - not_null
