@@ -1,0 +1,18 @@
+{
+    "workbench.editorAssociations": {
+        "*.copilotmd": "vscode.markdown.preview.editor",
+        "*.parquet": "duckdb.dataFileViewer",
+        "*.csv": "duckdb.dataFileViewer",
+        "*.tsv": "duckdb.dataFileViewer",
+        "*.xlsx": "duckdb.dataFileViewer"
+    },
+    "duckdb.databases": [
+        {
+            "alias": "dev",
+            "type": "file",
+            "path": "c:\\Projects\\instagram-analytics-engine\\instagram_analytics_engine\\dev.duckdb",
+            "attached": true
+        }
+    ],
+    "duckdb.defaultDatabase": "dev"
+}

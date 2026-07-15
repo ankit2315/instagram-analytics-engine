@@ -87,3 +87,20 @@ models:
           - not_null
           - accepted_values:
               values: ['short', 'medium', 'long', 'unknown']
+
+  - name: agg_instagram_video_length_performance
+    description: "Aggregate mart comparing performance across video length buckets (short, medium, long). One row per video length bucket."
+
+    columns:
+      - name: video_length_bucket
+        description: "The video duration category. This defines the grain of this aggregate mart."
+        tests:
+          - not_null
+          - unique
+          - accepted_values:
+              values: ['short', 'medium', 'long', 'unknown']
+      
+      - name: post_count
+        description: "Total number of posts in this video length bucket."
+        tests:
+          - not_null
