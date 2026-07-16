@@ -32,4 +32,4 @@ weekly_aggregated as (
 
 select *
 from weekly_aggregated
-order by week_start_date
+ORDER BY week_start_date DESC
