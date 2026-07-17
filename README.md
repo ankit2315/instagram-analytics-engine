@@ -1,6 +1,6 @@
 # 🏏 Sachin Tendulkar Instagram Analytics Engine
 
-An Analytics Engineering project built with **dbt, DuckDB, and SQL** to transform raw Meta Business Suite exports into dimensional models. 
+An Analytics Engineering project built with **dbt, DuckDB, and SQL** that transforms raw Meta Business Suite exports into clean dimensional models and dashboard-ready analytical tables.
 
 This project analyzes the performance of a Sachin Tendulkar fan page (~17 months of Instagram performance data, 79 posts) to uncover actionable content strategy insights.
 
@@ -11,7 +11,7 @@ This project analyzes the performance of a Sachin Tendulkar fan page (~17 months
 * **Version Control:** Git & GitHub
 
 ## 🎯 The Business Goal
-The goal of this project was to move away from messy, ad-hoc Excel analysis and build a scalable, automated data warehouse. The resulting data marts answer key strategic questions:
+The goal of this project was to replace manual spreadsheet analysis with a reproducible analytics pipeline. The resulting data marts answer key strategic questions:
 * Which video length (short, medium, long) drives the highest true engagement rate?
 * How does page performance trend week-over-week?
 * What are the all-time top-performing posts based on a weighted global ranking?
@@ -62,6 +62,12 @@ flowchart TD
 
 3. **Lightweight BI Philosophy**
    All heavy aggregations, rate calculations, and window functions are executed upstream in DuckDB via dbt. This ensures the final Power BI dashboard acts only as a presentation layer, guaranteeing fast load times and metric consistency.
+
+## 📈 Key Findings
+
+- Medium-length reels achieved the highest engagement rate among the analyzed content.
+- Weekly aggregate marts make it easy to monitor content performance trends over time.
+- The final report mart enables ranking and analysis of top-performing posts without additional SQL transformations in the BI layer.
 
 ## 📊 Dashboard Preview
 *(Screenshots will be added here once the Power BI dashboard is finalized.)*
