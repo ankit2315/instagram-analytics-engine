@@ -2,7 +2,7 @@
 
 An Analytics Engineering project built with **dbt, DuckDB, and SQL** that transforms raw Meta Business Suite exports into clean dimensional models and dashboard-ready analytical tables.
 
-This project analyzes the performance of a Sachin Tendulkar fan page (~17 months of Instagram performance data, 79 posts) to uncover actionable content strategy insights.
+This project analyzes the performance of my own Sachin Tendulkar fan page (~17 months of Instagram performance data, 79 posts) to uncover actionable content strategy insights.
 
 ## 🛠️ The Tech Stack
 * **Data Transformation & Modeling:** dbt (Data Build Tool)
