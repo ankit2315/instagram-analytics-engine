@@ -1,6 +1,6 @@
 # 🏏 Sachin Tendulkar Instagram Analytics Engine
 
-A modern Analytics Engineering pipeline built with **dbt, DuckDB, and SQL** to transform raw Meta Business Suite exports into dashboard-ready dimensional models. 
+An Analytics Engineering project built with **dbt, DuckDB, and SQL** to transform raw Meta Business Suite exports into dimensional models. 
 
 This project analyzes the performance of a Sachin Tendulkar fan page (~17 months of Instagram performance data, 79 posts) to uncover actionable content strategy insights.
 
