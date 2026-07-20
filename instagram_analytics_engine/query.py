@@ -2,17 +2,19 @@ import duckdb
 con = duckdb.connect('dev.duckdb')
 res = con.execute('''
     SELECT 
-        week_start_date, 
-        post_count, 
-        total_views, 
-        weekly_engagement_rate 
-    FROM agg_instagram_weekly_performance
-    ORDER BY week_start_date DESC
-    LIMIT 10
+        global_views_rank,
+        caption, 
+        views, 
+        engagement_rate 
+    FROM rpt_instagram_post_performance
+    ORDER BY global_views_rank ASC
+    LIMIT 3
 ''').fetchall()
 
-print("| Week Start Date | Post Count | Total Views | Weekly Engagement Rate (%) |")
+print("| Rank | Caption (Preview) | Views | Engagement Rate (%) |")
 print("|---|---|---|---|")
 for row in res:
-    week_str = row[0].strftime('%Y-%m-%d') if row[0] else 'N/A'
-    print(f"| {week_str} | {row[1]} | {row[2]:,} | {row[3]} |")
+    caption = row[1].replace('\n', ' ') if row[1] else "No caption"
+    # Truncate caption for display
+    caption = caption[:40] + "..." if len(caption) > 40 else caption
+    print(f"| {row[0]} | {caption} | {row[2]:,} | {row[3]} |")
