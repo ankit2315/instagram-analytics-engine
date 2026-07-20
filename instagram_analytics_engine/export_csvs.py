@@ -11,5 +11,7 @@ con = duckdb.connect('dev.duckdb')
 con.execute("COPY (SELECT * FROM agg_instagram_video_length_performance) TO 'exports/agg_instagram_video_length_performance.csv' (HEADER, DELIMITER ',')")
 con.execute("COPY (SELECT * FROM agg_instagram_weekly_performance) TO 'exports/agg_instagram_weekly_performance.csv' (HEADER, DELIMITER ',')")
 con.execute("COPY (SELECT * FROM rpt_instagram_post_performance) TO 'exports/rpt_instagram_post_performance.csv' (HEADER, DELIMITER ',')")
+con.execute("COPY (SELECT * FROM agg_instagram_overview) TO 'exports/agg_instagram_overview.csv' (HEADER, DELIMITER ',')")
+
 
 print("Successfully exported all 3 marts to the 'exports' folder!")

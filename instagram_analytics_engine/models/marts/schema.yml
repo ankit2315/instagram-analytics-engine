@@ -129,3 +129,9 @@ models:
         tests:
           - not_null
           - unique
+
+  - name: agg_instagram_overview
+    description: "Executive overview mart containing lifetime performance totals. One row table."
+    columns:
+      - name: total_posts
+        description: "Total lifetime posts."

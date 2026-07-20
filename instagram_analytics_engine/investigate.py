@@ -1,14 +1,14 @@
 import duckdb
-import pandas as pd
 
 con = duckdb.connect('dev.duckdb')
 
 query = """
 SELECT 
-    reach, 
-    total_engagements, 
-    engagement_rate 
+    date_trunc('month', published_at) as month, 
+    count(*) as post_count 
 FROM rpt_instagram_post_performance 
-WHERE date_trunc('week', published_at) = '2024-10-21 00:00:00'
+WHERE extract('year' FROM published_at) = 2025
+GROUP BY 1 
+ORDER BY 1
 """
-print(con.execute(query).df())
+print(con.execute(query).df().to_string())
