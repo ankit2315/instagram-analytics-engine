@@ -21,10 +21,10 @@ weekly_aggregated as (
         round(avg(views), 2) as avg_views_per_post,
         round(avg(reach), 2) as avg_reach_per_post,
         
-        -- True Weekly Rates
-        round((sum(cast(saves as {{ dbt.type_float() }})) / nullif(sum(reach), 0)) * 100, 2) as weekly_save_rate,
-        round((sum(cast(shares as {{ dbt.type_float() }})) / nullif(sum(reach), 0)) * 100, 2) as weekly_share_rate,
-        round((sum(cast(total_engagements as {{ dbt.type_float() }})) / nullif(sum(reach), 0)) * 100, 2) as weekly_engagement_rate
+        -- True Weekly Rates (excluding posts with missing reach)
+        round((sum(case when reach is not null then cast(saves as {{ dbt.type_float() }}) else 0 end) / nullif(sum(reach), 0)) * 100, 2) as weekly_save_rate,
+        round((sum(case when reach is not null then cast(shares as {{ dbt.type_float() }}) else 0 end) / nullif(sum(reach), 0)) * 100, 2) as weekly_share_rate,
+        round((sum(case when reach is not null then cast(total_engagements as {{ dbt.type_float() }}) else 0 end) / nullif(sum(reach), 0)) * 100, 2) as weekly_engagement_rate
 
     from performance
     group by date_trunc('week', published_at)
