@@ -100,6 +100,9 @@ models:
           - accepted_values:
               values: ['short', 'medium', 'long', 'unknown']
       
+      - name: video_length_sort
+        description: "Integer sort column for BI tools to properly order buckets (1=short, 2=medium, 3=long)."
+      
       - name: post_count
         description: "Total number of posts in this video length bucket."
         tests:

@@ -1,4 +1,4 @@
-video_length_bucket,post_count,posts_with_reach,total_views,total_reach,total_engagements,total_saves,total_shares,total_follows,avg_views_per_post,avg_reach_per_post,avg_engagements_per_post,avg_like_rate,avg_comment_rate,avg_share_rate,avg_save_rate,avg_engagement_rate
-medium,14,14,9799322,5930093,1076859,27490,170507,2607,699951.57,423578.07,76918.5,13.05,0.17,2.62,0.66,16.5
-long,40,39,6240830,3958207,726418,22505,103726,2360,156020.75,101492.49,18160.45,9.99,0.11,1.91,0.7,12.72
-short,25,25,5317796,2828421,437780,10129,54673,1094,212711.84,113136.84,17511.2,10.15,0.16,1.64,0.48,12.42
+video_length_bucket,video_length_sort,post_count,posts_with_reach,total_views,total_reach,total_engagements,total_saves,total_shares,total_follows,avg_views_per_post,avg_reach_per_post,avg_engagements_per_post,avg_like_rate,avg_comment_rate,avg_share_rate,avg_save_rate,avg_engagement_rate
+short,1,25,25,5317796,2828421,437780,10129,54673,1094,212711.84,113136.84,17511.2,10.15,0.16,1.64,0.48,12.42
+long,3,40,39,6240830,3958207,726418,22505,103726,2360,156020.75,101492.49,18160.45,9.99,0.11,1.91,0.7,12.72
+medium,2,14,14,9799322,5930093,1076859,27490,170507,2607,699951.57,423578.07,76918.5,13.05,0.17,2.62,0.66,16.5

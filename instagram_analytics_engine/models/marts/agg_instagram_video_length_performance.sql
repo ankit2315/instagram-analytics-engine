@@ -32,6 +32,13 @@ joined as (
 
 select
     video_length_bucket,
+    
+    CASE
+        WHEN video_length_bucket = 'short' THEN 1
+        WHEN video_length_bucket = 'medium' THEN 2
+        WHEN video_length_bucket = 'long' THEN 3
+        ELSE 4
+    END AS video_length_sort,
 
     count(*) as post_count,
     count(reach) as posts_with_reach,
