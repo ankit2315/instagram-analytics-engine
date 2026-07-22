@@ -1,43 +1,82 @@
-# Instagram Analytics Engine 🚀
+# 🏏 Sachin Tendulkar Instagram Analytics Engine
 
-An end-to-end modern data stack project that ingests raw Instagram performance data, transforms it using **dbt (Data Build Tool)** and **DuckDB**, and visualizes the insights in a premium **Power BI** dashboard.
+An Analytics Engineering project built with **dbt, DuckDB, and SQL** that transforms raw Meta Business Suite exports into clean dimensional models and dashboard-ready analytical tables.
 
-## 📊 The Final Dashboard
-![Instagram Analytics Dashboard](dashboard.png)
+This project analyzes 17 months of performance data from my own Sachin Tendulkar fan page using exports from Meta Business Suite to uncover actionable content strategy insights.
 
-## 🛠️ Tech Stack
-- **Database Engine:** DuckDB (In-process, lightning-fast SQL OLAP database)
-- **Data Transformation:** dbt (Data Build Tool)
-- **Scripting & Orchestration:** Python
-- **Data Visualization:** Power BI
-- **Version Control:** Git & GitHub
+## 📊 Power BI Dashboard
+<p align="center">
+  <img src="dashboard.png" width="850">
+</p>
+
+## 🎯 The Business Goal
+The goal of this project was to replace manual spreadsheet analysis with a reproducible analytics pipeline. The resulting data marts answer key strategic questions:
+* Which video length (short, medium, long) drives the highest true engagement rate?
+* How does page performance trend week-over-week?
+* What are the all-time top-performing posts based on a weighted global ranking?
+
+## ✨ Key Findings
+
+- Medium-length reels achieved the highest engagement rate among the analyzed content.
+- Weekly aggregate marts make it easy to monitor content performance trends over time.
+- The final report mart enables ranking and analysis of top-performing posts without additional SQL transformations in the BI layer.
+
+## 🛠️ The Tech Stack
+* **Data Transformation & Modeling:** dbt (Data Build Tool)
+* **Database:** DuckDB (Local analytical database)
+* **BI / Visualization:** Power BI
+* **Version Control:** Git & GitHub
 
 ## 🏗️ Architecture & Data Modeling
-This project follows analytics engineering best practices, utilizing a strict modular data modeling approach:
+This project follows a **Kimball-style dimensional modeling approach**, separating fact tables, dimension tables, and analytical marts to create a clean and scalable analytics layer.
 
-1. **Sources (Raw Data):** Ingests raw JSON/CSV dumps of Instagram metrics.
-2. **Staging (`stg_`):** Cleans up raw data, normalizes timestamps, casts data types, and standardizes column names.
-3. **Intermediate (`int_`):** Handles complex logic, such as joining staging tables and calculating pre-aggregated metrics.
-4. **Marts (`agg_` & `rpt_`):** The final presentation layer. 
-   - `agg_instagram_overview`: High-level KPIs (Total views, reach, engagements).
-   - `agg_instagram_weekly_performance`: Time-series trend data for weekly engagement rates.
-   - `agg_instagram_video_length_performance`: Categorical performance based on video duration (Short, Medium, Long).
-   - `rpt_instagram_post_performance`: Row-level detail report featuring top-performing posts and raw metrics.
+```mermaid
+flowchart TD
+    A[Meta Business Suite CSV] --> B[dbt Seeds]
+    B --> C[stg_instagram_posts]
+    
+    subgraph Core Models
+        C --> D[fct_instagram_post_performance]
+        C --> E[dim_post_meta]
+    end
+    
+    D --> F[agg_instagram_video_length_performance]
+    D --> G[agg_instagram_weekly_performance]
+    
+    D --> H[rpt_instagram_post_performance]
+    E --> H
+    
+    F --> I[(Power BI Dashboard)]
+    G --> I
+    H --> I
+```
 
-## 🧠 Key Technical Challenges Solved
-* **Complex Rate Calculations:** Engineered SQL logic to calculate true Engagement Rate `(Total Engagements / Reach)`.
-* **Null Handling:** Implemented strict filtering logic to exclude posts with missing reach data from aggregate calculations, preventing mathematically impossible (e.g., 4,000%) engagement rates.
-* **Dynamic Sorting:** Built custom surrogate sort columns in SQL to force BI tools to sort categorical buckets logically (Short -> Medium -> Long) rather than alphabetically.
+### 1. Staging (`stg_`)
+* `stg_instagram_posts`: Cleans raw Meta CSV exports, standardizes column names, and casts data types.
 
-## 🚀 How to Run Locally
+### 2. Core Models (`fct_` & `dim_`)
+* `fct_instagram_post_performance`: A pure metric table (grain: 1 row per post). Contains views, reach, likes, and calculates baseline engagement rates.
+* `dim_post_meta`: A pure attribute table. Contains descriptive metadata like captions, URLs, and video length buckets.
+
+### 3. Data Marts (`agg_` & `rpt_`)
+* `agg_instagram_video_length_performance`: Groups posts by video duration bucket. 
+* `agg_instagram_weekly_performance`: Uses `date_trunc` to track volume and engagement trends on a weekly basis.
+* `rpt_instagram_post_performance`: An enriched, wide report table utilizing Window Functions (`ROW_NUMBER()`) to assign global rankings to posts without requiring the BI tool to execute complex sorting logic.
+
+## 🧠 Key Design Decisions
+
+1. **True Rates vs. Averages of Averages**
+   In the weekly aggregate mart, `weekly_engagement_rate` is calculated by summing total engagements and dividing by total reach (`SUM(engagements) / SUM(reach)`), rather than simply averaging the engagement rates of individual posts. This prevents skewed data when low-reach posts have viral engagement spikes.
+
+2. **Handling Missing Reach Denominators**
+   Meta exports occasionally omit `reach` data. In the final report mart, missing reach is handled gracefully. When ranking posts by engagement rate, the SQL utilizes `NULLS LAST` to ensure posts with missing denominators aren't falsely ranked as the #1 performing content.
+
+3. **Lightweight BI Philosophy**
+   All heavy aggregations, rate calculations, and window functions are executed upstream in DuckDB via dbt. This ensures the final Power BI dashboard acts only as a presentation layer, guaranteeing fast load times and metric consistency.
+
+## 🚀 How to Run this Project
 1. Clone the repository.
-2. Install dependencies: `pip install dbt-duckdb pandas`
-3. Run the dbt models:
-   ```bash
-   dbt build
-   ```
-4. Export the final marts to CSV for Power BI:
-   ```bash
-   python export_csvs.py
-   ```
-5. Open Power BI and refresh the semantic model!
+2. Ensure Python and `dbt-duckdb` are installed.
+3. Run `dbt deps` to install dependencies.
+4. Run `dbt seed` to load the raw CSV data into DuckDB.
+5. Run `dbt build` to execute all models and run schema tests.
