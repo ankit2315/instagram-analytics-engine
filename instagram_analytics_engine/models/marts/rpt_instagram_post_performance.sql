@@ -18,6 +18,10 @@ joined as (
 
         performance.views,
         performance.reach,
+        performance.likes,
+        performance.comments,
+        performance.shares,
+        performance.saves,
         performance.total_engagements,
         
         performance.save_rate,
