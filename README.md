@@ -9,7 +9,7 @@ This project analyzes 17 months of performance data from my own Sachin Tendulkar
   <img src="dashboard.png" width="850">
 </p>
 <p align="center">
-  <em><b>Dataset:</b> 79 Instagram reels • ~17 months • Meta Business Suite exports</em>
+  <em><b>Dataset:</b> 79 Instagram posts • ~17 months • Meta Business Suite exports</em>
 </p>
 
 
