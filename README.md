@@ -8,18 +8,22 @@ This project analyzes 17 months of performance data from my own Sachin Tendulkar
 <p align="center">
   <img src="dashboard.png" width="850">
 </p>
+<p align="center">
+  <em><b>Dataset:</b> 79 Instagram reels • ~17 months • Meta Business Suite exports</em>
+</p>
+
 
 ## 🎯 The Business Goal
-The goal of this project was to replace manual spreadsheet analysis with a reproducible analytics pipeline. The resulting data marts answer key strategic questions:
+The goal of this project was to replace manual spreadsheet analysis with a reproducible analytics pipeline that produces consistent business metrics and dashboard-ready reporting tables. The resulting data marts answer key strategic questions:
 * Which video length (short, medium, long) drives the highest true engagement rate?
 * How does page performance trend week-over-week?
 * What are the all-time top-performing posts based on a weighted global ranking?
 
 ## ✨ Key Findings
 
-- Medium-length reels achieved the highest engagement rate among the analyzed content.
-- Weekly aggregate marts make it easy to monitor content performance trends over time.
-- The final report mart enables ranking and analysis of top-performing posts without additional SQL transformations in the BI layer.
+✅ Medium-length reels consistently achieved the highest engagement rate.
+✅ Engagement fluctuated substantially week-to-week, with occasional viral spikes driving overall performance.
+✅ Pre-aggregated marts eliminated the need for complex calculations inside Power BI.
 
 ## 🛠️ The Tech Stack
 * **Data Transformation & Modeling:** dbt (Data Build Tool)
@@ -68,11 +72,26 @@ flowchart TD
 1. **True Rates vs. Averages of Averages**
    In the weekly aggregate mart, `weekly_engagement_rate` is calculated by summing total engagements and dividing by total reach (`SUM(engagements) / SUM(reach)`), rather than simply averaging the engagement rates of individual posts. This prevents skewed data when low-reach posts have viral engagement spikes.
 
-2. **Handling Missing Reach Denominators**
+2. **Handling Missing Reach Values**
    Meta exports occasionally omit `reach` data. In the final report mart, missing reach is handled gracefully. When ranking posts by engagement rate, the SQL utilizes `NULLS LAST` to ensure posts with missing denominators aren't falsely ranked as the #1 performing content.
 
 3. **Lightweight BI Philosophy**
    All heavy aggregations, rate calculations, and window functions are executed upstream in DuckDB via dbt. This ensures the final Power BI dashboard acts only as a presentation layer, guaranteeing fast load times and metric consistency.
+
+## 📁 Project Structure
+```text
+instagram-analytics-engine/
+│
+├── exports/                 # Generated CSVs for Power BI
+├── models/
+│   ├── staging/             # Initial cleanup models (stg_)
+│   └── marts/               # Core facts, dims, and aggregates (agg_, rpt_)
+├── seeds/                   # Raw CSV data from Meta Business Suite
+├── tests/                   # Custom data validation tests
+├── dashboard.png            # Screenshot of the Power BI dashboard
+├── export_csvs.py           # Script to extract tables from DuckDB
+└── dbt_project.yml          # dbt configuration
+```
 
 ## 🚀 How to Run this Project
 1. Clone the repository.
@@ -80,3 +99,4 @@ flowchart TD
 3. Run `dbt deps` to install dependencies.
 4. Run `dbt seed` to load the raw CSV data into DuckDB.
 5. Run `dbt build` to execute all models and run schema tests.
+6. Run `python export_csvs.py` to generate dashboard-ready CSVs for Power BI.
