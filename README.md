@@ -23,7 +23,7 @@ The goal of this project was to replace manual spreadsheet analysis with a repro
 
 ✅ Medium-length reels consistently achieved the highest engagement rate.
 ✅ Engagement fluctuated substantially week-to-week, with occasional viral spikes driving overall performance.
-✅ Pre-aggregated marts eliminated the need for complex calculations inside Power BI.
+✅ **Viral Dependency:** Growth is driven entirely by outlier viral hits, not consistent baseline performance. While the *average* post receives 270k views, the *median* post receives only 12k. Just 10% of the posts accounted for 61% of the page's total 21M views.
 
 ## 🛠️ The Tech Stack
 * **Data Transformation & Modeling:** dbt (Data Build Tool)
