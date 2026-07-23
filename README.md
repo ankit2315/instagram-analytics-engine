@@ -22,7 +22,7 @@ The goal of this project was to replace manual spreadsheet analysis with a repro
 ## ✨ Key Findings
 
 ✅ Medium-length reels consistently achieved the highest engagement rate.
-✅ Engagement fluctuated substantially week-to-week, with occasional viral spikes driving overall performance.
+✅ **Stable Engagement Despite Uneven Reach:** Variability analysis showed that engagement rates remained far more consistent than views and reach, indicating that fluctuations in distribution were driven by factors beyond audience engagement alone.
 ✅ **Viral Dependency:** Growth is driven heavily by outlier viral hits, not consistent baseline performance. While the *average* post receives 270k views, the *median* post receives only 12k. Just 10% of the posts accounted for 61% of the page's total 21M views.
 
 ## 🛠️ The Tech Stack
