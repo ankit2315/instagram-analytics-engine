@@ -1,4 +1,4 @@
-# 🏏 Sachin Tendulkar Instagram Analytics Engine
+# 🏏 Sachin Tendulkar Instagram Analytics Pipeline
 
 An Analytics Engineering project built with **dbt, DuckDB, and SQL** that transforms raw Meta Business Suite exports into clean dimensional models and dashboard-ready analytical tables.
 
@@ -80,7 +80,7 @@ flowchart TD
 
 ## 📁 Project Structure
 ```text
-instagram-analytics-engine/
+instagram-analytics-pipeline/
 │
 ├── exports/                 # Generated CSVs for Power BI
 ├── models/
